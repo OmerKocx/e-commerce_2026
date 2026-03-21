@@ -1,0 +1,31 @@
+server:
+  # The port on which the product microservice will run
+  port: 8050
+
+spring:
+  datasource:
+    # Database connection settings
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/product
+    username: omerkoc
+    password: omerkoc
+
+  jpa:
+    hibernate:
+      # Use 'validate' to ensure the database schema matches the entities without making changes
+      ddl-auto: validate
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    # Allows Flyway to initialize a version history table even if the database already exists
+    baseline-on-migrate: true
+    # Enables Flyway for database migration management
+    enabled: true
+    # The description for the baseline migration in the schema history table
+    baseline-description: "init"
+    # Sets the initial version for baseline (0 means we start from the very beginning)
+    baseline-version: 0
+    # Uses the same credentials defined in the datasource section
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
