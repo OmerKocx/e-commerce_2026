@@ -6,9 +6,9 @@ spring:
   datasource:
     # Database connection settings
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/product
-    username: omerkoc
-    password: omerkoc
+    url: jdbc:postgresql://localhost:5444/product
+    username: postgres
+    password: admin
 
   jpa:
     hibernate:

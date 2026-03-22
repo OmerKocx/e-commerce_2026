@@ -30,5 +30,5 @@ public class Customer {
     private LocalDateTime lastModifiedDate;
     private String email;
     private String phone;
-    private String address;
+    private Address address;
 }
