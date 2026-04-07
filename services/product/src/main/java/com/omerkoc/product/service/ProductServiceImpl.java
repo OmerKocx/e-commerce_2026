@@ -36,12 +36,12 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(rollbackFor = ProductPurchaseException.class)
     @Override
     public List<ProductPurchaseResponseDto> purchaseProducts(List<ProductPurchaseRequestDto> request) {
-        var productIds = request
+        var wantedToPurchaseProductIds = request
                 .stream()
                 .map(ProductPurchaseRequestDto::productId)
                 .toList();
-        var storedProducts = repository.findAllById(productIds);
-        if (productIds.size() != storedProducts.size()) {
+        var storedProducts = repository.findAllById(wantedToPurchaseProductIds);
+        if (wantedToPurchaseProductIds.size() != storedProducts.size()) {
             throw new ProductPurchaseException("One or more products does not exist");
         }
         var sortedRequest = request
@@ -49,6 +49,7 @@ public class ProductServiceImpl implements ProductService {
                 .sorted(Comparator.comparing(ProductPurchaseRequestDto::productId))
                 .toList();
         var purchasedProducts = new ArrayList<ProductPurchaseResponseDto>();
+
         for (int i = 0; i < storedProducts.size(); i++) {
             var product = storedProducts.get(i);
             var productRequest = sortedRequest.get(i);
